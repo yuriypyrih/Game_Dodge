@@ -47,13 +47,13 @@ public class SmartBossBullet extends GameObject{
 		if(x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
 		
 		
-	  handler.addObject(new Trail(x, y, ID.Trail, new Color(204, 82, 0), 12, 12, 0.1f, handler));
+	  handler.addObject(new Trail(x, y, ID.Trail, Color.orange, 12, 12, 0.1f, handler));
 	}
 	
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		g.setColor(Color.orange);
+		g.setColor(Color.YELLOW);
 		g.fillRect((int)x,(int) y, 12, 12);
 	}
 }

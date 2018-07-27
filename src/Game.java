@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable{
 	private HUD hud;//you may want to fix/delete this health bar later...
 	private Spawn spawner;
 	private Menu menu;
+	private Background_manager BG_manager;
 	
 	
 	public STATE gameState = STATE.Menu;
@@ -30,8 +31,10 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD();
 		spawner = new Spawn(handler, hud);
 		menu = new Menu(this,handler,spawner, hud);
+		BG_manager = new Background_manager(this);
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 		
 	
 		AudioPlayer.load();
@@ -104,6 +107,7 @@ public class Game extends Canvas implements Runnable{
 			spawner.tick();
 			hud.tick();
 			
+			
 			//INSIDE OF THE GAME CHANGING STATES
 			if(hud.HEALTH<=0) {
 				gameState = STATE.End;
@@ -141,12 +145,14 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,WIDTH,HEIGHT);
 		
+		BG_manager.render(g);
 		handler.render(g);
 		
 		if(gameState == STATE.Game) {
 			hud.render(g);
 		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty  || gameState == STATE.Help
 				|| gameState == STATE.Victory || gameState == STATE.FinalVictory || gameState == STATE.End) {
+			BG_manager.render(g);
 			menu.render(g);
 		}
 		

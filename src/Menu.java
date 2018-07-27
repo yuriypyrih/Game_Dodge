@@ -10,17 +10,28 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 
-public class Menu extends MouseAdapter {
+public class Menu extends MouseAdapter implements MouseMotionListener {
 	
 	private Game game;
 	private Handler handler;
 	private Spawn spawner;
 	private HUD hud;
 	
-	private Image background_img = new ImageIcon("res/background_img.jpg").getImage();
+	
+	private Image dodge_menu_img = new ImageIcon("res/dodge_menu.jpg").getImage();
+	private Image dodge_menu_play_img = new ImageIcon("res/dodge_menu_play.jpg").getImage();
+	private Image dodge_menu_options_img = new ImageIcon("res/dodge_menu_options.jpg").getImage();
+	private Image dodge_menu_exit_img = new ImageIcon("res/dodge_menu_exit.jpg").getImage();
+	private Image background_img = dodge_menu_img;
+	
+	private Image select_level_img = new ImageIcon("res/dodge_select_level.jpg").getImage();
+	
+	
+	
 	private Image easy_mode_img = new ImageIcon("res/easy_mode.jpg").getImage();
 	private Image normal_mode_img = new ImageIcon("res/normal_mode.jpg").getImage();
 	private Image hard_mode_img = new ImageIcon("res/hard_mode.jpg").getImage();
+	
 	
 
 	public Menu(Game game, Handler handler, Spawn spawner, HUD hud) {
@@ -40,54 +51,108 @@ public class Menu extends MouseAdapter {
 		if(game.gameState==STATE.Menu) {
 			
 			/*PLAY button*/
-			if(mouseOver(mx,my,220,100,200,50)) {
+			if(mouseOver(mx,my,220,130,195,82)) {
 				game.gameState = STATE.Select;
+				background_img = dodge_menu_img;
 				
 			}
 			/*Difficulty button*/
-			else if(mouseOver(mx,my,220,180,200,50)) {
+			else if(mouseOver(mx,my,240,260,165,70)) {
 				game.gameState = STATE.Difficulty;
+				background_img = dodge_menu_img;
 			
 			}
-			/*HELP button*/
+			
+			/*HELP button
 			else if(mouseOver(mx,my,220,260,200,50)) {
 				game.gameState = STATE.Help;
 			
-			}
+			}*/
+			
 			/*QUITE button*/
-			else if(mouseOver(mx,my,220,340,200,50)) {
+			else if(mouseOver(mx,my,260,375,130,57)) {
 				System.exit(1);
 			}
 		}else if(game.gameState == STATE.Select) {
+			
+			
 			/*LEVEL 1*/
-			if(mouseOver(mx,my,70,120,50,50)){
+			if(mouseOver(mx,my,40,115,90,90)){
 				game.gameState = STATE.Game;
 				spawner.startLevel(1);
 			}
 			/*LEVEL 2*/
-			else if(mouseOver(mx,my,170,120,50,50)){
+			else if(mouseOver(mx,my,155,115,90,90)){
 				game.gameState = STATE.Game;
 				spawner.startLevel(2);
 			}
 			/*LEVEL 3*/
-			else if(mouseOver(mx,my,270,120,50,50)){
+			else if(mouseOver(mx,my,270,115,90,90)){
 				game.gameState = STATE.Game;
 				spawner.startLevel(3);
 			}
 			/*LEVEL 4*/
-			else if(mouseOver(mx,my,370,120,50,50)){
+			else if(mouseOver(mx,my,385,115,90,90)){
 				game.gameState = STATE.Game;
 				spawner.startLevel(4);
 			
 			}
 			/*LEVEL 5*/
-			else if(mouseOver(mx,my,470,120,50,50)){
+			else if(mouseOver(mx,my,495,115,90,90)){
 				game.gameState = STATE.Game;
 				spawner.startLevel(5);
 				
 			}
+			/*LEVEL 6*/
+			else if(mouseOver(mx,my,40,230,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(6);
+				
+			}
+			/*LEVEL 7*/
+			else if(mouseOver(mx,my,155,225,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(7);
+				
+			}
+			/*LEVEL 8*/
+			else if(mouseOver(mx,my,270,225,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(8);
+				
+			}
+			/*LEVEL 9*/
+			else if(mouseOver(mx,my,382,225,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(9);
+				
+			}
+			/*LEVEL 10*/
+			else if(mouseOver(mx,my,497,225,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(10);
+				
+			}
+			/*LEVEL 11*/
+			else if(mouseOver(mx,my,40,340,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(11);
+				
+			}
+			/*LEVEL 12*/
+			else if(mouseOver(mx,my,153,340,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(12);
+				
+			}
+			/*LEVEL 13*/
+			else if(mouseOver(mx,my,270,340,90,90)){
+				//game.gameState = STATE.Game;
+				//spawner.startLevel(13);
+				
+			}
 			/*BACK button*/
-			else if(mouseOver(mx,my,460,390,150,40)){
+			else if(mouseOver(mx,my,400,345,180,80)){
 				game.gameState = STATE.Menu;
 			}
 		}else if(game.gameState == STATE.Difficulty) {
@@ -152,6 +217,32 @@ public class Menu extends MouseAdapter {
 		
 	}
 	
+	
+	public void mouseMoved(MouseEvent e) {
+		int mx = e.getX();
+		int my = e.getY();
+		
+		if(game.gameState==STATE.Menu) {
+			
+			/*PLAY button*/
+			if(mouseOver(mx,my,220,130,195,82)) {
+				background_img = dodge_menu_play_img;
+			}
+			/*Difficulty button*/
+			else if(mouseOver(mx,my,240,260,165,70)) {
+				background_img = dodge_menu_options_img;
+			}
+			/*QUITE button*/
+			else if(mouseOver(mx,my,260,375,130,57)) {
+				background_img = dodge_menu_exit_img;
+			}
+			/*IF NOT THEN THE DEFAULT BACKGROUND*/
+			else {
+				background_img = dodge_menu_img;
+			}
+		}
+	}
+	
 
 	
 	private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
@@ -179,81 +270,14 @@ public class Menu extends MouseAdapter {
 		g.setColor(Color.white);
 		
 		if(game.gameState==STATE.Menu) {
-			
+				
 			g.drawImage(background_img,0,0,null);
-			
-			g.setFont(fnt1);
-			g.drawString("Menu", 250, 70);
-			
-			g.setFont(fnt2);
-			g.drawRect(220,100,200,50);
-			g.drawString("Play", 280, 140);
-			
-			g.drawRect(220,180,200,50);
-			g.drawString("Difficulty", 260, 220);
-			
-			g.drawRect(220,260,200,50);
-			g.drawString("What?", 280, 300);
-			
-			g.drawString("Quit", 280, 380);
-			g.drawRect(220,340,200,50);
-			
 		
 		}
 		else if(game.gameState==STATE.Select) {
-			g.setFont(fnt1);
-			g.drawString("Select Level", 170, 70);
 			
-			g.setFont(fnt2);
-			g.setColor(Color.red);
-			g.fillRect(70,120,50,50);
-			g.setColor(Color.white);
-			g.drawRect(70,120,50,50);
-			g.drawString("1", 85, 160);
-			//g.setFont(fnt3);
-			//g.drawString("Scout",70, 190);
-			//g.setFont(fnt2);
+			g.drawImage(select_level_img,0,0,null);
 			
-			g.setColor(new Color(0,139,139));
-			g.fillRect(170,120,50,50);
-			g.setColor(Color.white);
-			g.drawRect(170,120,50,50);
-			g.drawString("2", 185, 160);
-			//g.setFont(fnt3);
-			//g.drawString("Speeder", 160, 190);
-			//g.setFont(fnt2);
-			
-			g.setColor(Color.orange);
-			g.fillRect(270,120,50,50);
-			g.setColor(Color.white);
-			g.drawString("3", 285, 160);
-			g.drawRect(270,120,50,50);
-			//g.setFont(fnt3);
-			//g.drawString("Tracer", 270, 190);
-			//g.setFont(fnt2);
-			
-			g.setColor(Color.pink);
-			g.fillRect(370,120,50,50);
-			g.setColor(Color.gray);
-			g.drawString("4", 385, 160);
-			g.setColor(Color.white);
-			g.drawRect(370,120,50,50);
-			//g.setFont(fnt3);
-			//g.drawString("Worm", 370, 190);
-			//g.setFont(fnt2);
-			
-			g.setColor(new Color(153, 0, 204));
-			g.fillRect(470,120,50,50);
-			g.setColor(Color.white);
-			g.drawString("5", 485, 160);
-			g.drawRect(470,120,50,50);
-			//g.setFont(fnt3);
-			//g.drawString("Virus", 470, 190);
-			//g.setFont(fnt2);
-			
-			
-			g.drawString("Back", 490, 420);
-			g.drawRect(460,390,150,40);
 		}
 		else if(game.gameState==STATE.Difficulty) {
 			
@@ -295,7 +319,7 @@ public class Menu extends MouseAdapter {
 		else if(game.gameState==STATE.Help) {
 			
 			g.setFont(fnt3);
-			g.drawString("Use WSAD to avoid enemies and collect the 3 starts to win each level.", 18, 50);
+			g.drawString("Use WSAD to avoid enemies and collect the 3 stars to win each level.", 18, 50);
 			g.drawString("Your goal?  to survive..", 220, 75);
 			
 			g.setFont(fnt4);
