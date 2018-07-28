@@ -53,7 +53,8 @@ public class Player extends GameObject{
 			if(tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy 
 					|| tempObject.getId() == ID.WormEnemy|| tempObject.getId() == ID.VirusEnemy
 					|| tempObject.getId() == ID.BossEnemy || tempObject.getId() == ID.WormBossEnemy
-					|| tempObject.getId() == ID.SmartBossEnemy|| tempObject.getId() == ID.FastBossEnemy ) {//tempObject is now basic enemy
+					|| tempObject.getId() == ID.SmartBossEnemy|| tempObject.getId() == ID.FastBossEnemy
+					|| tempObject.getId() == ID.VirusBossEnemy ) {//tempObject is now basic enemy
 				if(getBounds().intersects(tempObject.getBounds())) {	//intersects() is a method of Rectangle library
 					//collision
 					if(spawner.difficulty == 0) {

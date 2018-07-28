@@ -4,12 +4,14 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
+	private Game game;
 	
 	private boolean[] keyDown = new boolean[4];
 	
 	//Constructor for KeyInput class
-	public KeyInput(Handler handler ) {
+	public KeyInput(Handler handler, Game game ) {
 		this.handler = handler;
+		this.game = game;
 		
 		
 		keyDown[0] = false; //W
@@ -64,7 +66,23 @@ public class KeyInput extends KeyAdapter{
 			
 		}
 		
-		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		if(key == KeyEvent.VK_ESCAPE) {
+			if(game.gameState == STATE.Select) {
+				game.gameState = STATE.Menu;
+			}
+			else if(game.gameState == STATE.Difficulty) {
+				game.gameState = STATE.Menu;
+			}	
+			else if(game.gameState == STATE.Game) {
+				game.gameState = STATE.Pause;
+			}
+			else if(game.gameState == STATE.Pause) {
+				game.gameState = STATE.Game;
+			}
+			else if(game.gameState == STATE.Menu) {
+				System.exit(1);
+			}
+		}
 		
 	}//end of keyReleased Method
 

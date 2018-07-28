@@ -5,6 +5,7 @@ public enum STATE {
 	Select,
 	Difficulty,
 	Help,
+	Pause,
 	Victory,
 	FinalVictory,
 	End

@@ -1,10 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 
 public class DeathTrap extends GameObject{
 	
 	private Handler handler;
+	private Image deathtrap_img = new ImageIcon("res/deathtrap.png").getImage();
 	
 	public DeathTrap(float x, float y, ID id, Handler handler) {
 			super(x, y, id);
@@ -31,21 +35,8 @@ public class DeathTrap extends GameObject{
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR HEALER SHOULD LOOK LIKE
-		g.setColor(Color.green);
-		g.fillRect((int)x, (int)y, 16, 16);
 		
-		g.setColor(Color.black);
-		g.fillRect((int)x, (int)y, 5, 5);
-		g.fillRect((int)x+11, (int)y, 5, 5);
-		g.fillRect((int)x, (int)y+11, 5, 5);
-		g.fillRect((int)x+11, (int)y+11, 5, 5);
-		
-		g.setColor(Color.red);
-		g.fillRect((int)x +6, (int)y, 4, 16);
-		g.fillRect((int)x, (int)y+ 6, 16, 4);
-		
-		g.drawOval((int)x-4, (int)y-4, 23, 22);
-		
+		g.drawImage(deathtrap_img,(int)x, (int)y,null);
 		
 	}
 }

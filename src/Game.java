@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable{
 		spawner = new Spawn(handler, hud);
 		menu = new Menu(this,handler,spawner, hud);
 		BG_manager = new Background_manager(this);
-		this.addKeyListener(new KeyInput(handler));
+		this.addKeyListener(new KeyInput(handler,this));
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		
@@ -123,9 +123,9 @@ public class Game extends Canvas implements Runnable{
 				}
 				handler.clearGame();
 			}
-		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty 
+		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty || gameState == STATE.Pause
 				|| gameState == STATE.Help || gameState == STATE.Victory || gameState == STATE.FinalVictory|| gameState == STATE.End ) {
-			handler.tick();
+			//handler.tick();
 			menu.tick();
 		}
 		
@@ -151,8 +151,12 @@ public class Game extends Canvas implements Runnable{
 		if(gameState == STATE.Game) {
 			hud.render(g);
 		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty  || gameState == STATE.Help
-				|| gameState == STATE.Victory || gameState == STATE.FinalVictory || gameState == STATE.End) {
-			BG_manager.render(g);
+			|| gameState == STATE.Victory || gameState == STATE.FinalVictory || gameState == STATE.End) {
+			
+			menu.render(g);
+		}
+		else if(gameState == STATE.Pause) {
+			hud.render(g);
 			menu.render(g);
 		}
 		

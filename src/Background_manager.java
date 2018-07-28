@@ -38,7 +38,7 @@ public class Background_manager  {
 	
 	public void render(Graphics g) {
 		
-		if(game.gameState == STATE.Game) {
+		if(game.gameState == STATE.Game || game.gameState == STATE.Pause) {
 			if( Spawn.getOutterLevel() == 1) {
 				g.drawImage(background_lvl_1,0,0,null);
 			}

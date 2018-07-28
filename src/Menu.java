@@ -24,9 +24,27 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private Image dodge_menu_exit_img = new ImageIcon("res/dodge_menu_exit.jpg").getImage();
 	private Image background_img = dodge_menu_img;
 	
-	private Image select_level_img = new ImageIcon("res/dodge_select_level.jpg").getImage();
+	private Image dodge_select_level_img = new ImageIcon("res/dodge_select_level.jpg").getImage();
+	private Image dodge_select_level_1_img = new ImageIcon("res/dodge_select_level_1.jpg").getImage();
+	private Image dodge_select_level_2_img = new ImageIcon("res/dodge_select_level_2.jpg").getImage();
+	private Image dodge_select_level_3_img = new ImageIcon("res/dodge_select_level_3.jpg").getImage();
+	private Image dodge_select_level_4_img = new ImageIcon("res/dodge_select_level_4.jpg").getImage();
+	private Image dodge_select_level_5_img = new ImageIcon("res/dodge_select_level_5.jpg").getImage();
+	private Image dodge_select_level_6_img = new ImageIcon("res/dodge_select_level_6.jpg").getImage();
+	private Image dodge_select_level_7_img = new ImageIcon("res/dodge_select_level_7.jpg").getImage();
+	private Image dodge_select_level_8_img = new ImageIcon("res/dodge_select_level_8.jpg").getImage();
+	private Image dodge_select_level_9_img = new ImageIcon("res/dodge_select_level_9.jpg").getImage();
+	private Image dodge_select_level_10_img = new ImageIcon("res/dodge_select_level_10.jpg").getImage();
+	private Image dodge_select_level_11_img = new ImageIcon("res/dodge_select_level_11.jpg").getImage();
+	private Image dodge_select_level_12_img = new ImageIcon("res/dodge_select_level_12.jpg").getImage();
+	private Image dodge_select_level_13_img = new ImageIcon("res/dodge_select_level_13.jpg").getImage();
+	private Image dodge_select_level_back_img = new ImageIcon("res/dodge_select_level_back.jpg").getImage();
+	private Image select_level_img = dodge_select_level_img;
 	
-	
+	private Image paused_default_img = new ImageIcon("res/paused_img.png").getImage();
+	private Image paused_resume_img = new ImageIcon("res/paused_resume_img.png").getImage();
+	private Image paused_giveup_img = new ImageIcon("res/paused_giveup_img.png").getImage();
+	private Image paused_img = paused_default_img;
 	
 	private Image easy_mode_img = new ImageIcon("res/easy_mode.jpg").getImage();
 	private Image normal_mode_img = new ImageIcon("res/normal_mode.jpg").getImage();
@@ -154,6 +172,7 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			/*BACK button*/
 			else if(mouseOver(mx,my,400,345,180,80)){
 				game.gameState = STATE.Menu;
+				select_level_img = dodge_select_level_img;
 			}
 		}else if(game.gameState == STATE.Difficulty) {
 			/*EASY*/
@@ -175,10 +194,26 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			}
 		}
 		else if(game.gameState == STATE.Help) {
+			
+			/*BACK BUTTON*/
 			if(mouseOver(mx,my,460,390,150,40)){
 				game.gameState = STATE.Menu;
 			}
-		}else if(game.gameState == STATE.Victory) {
+			
+		}
+		else if(game.gameState==STATE.Pause) {
+			
+			/*RESUME BUTTON*/
+			if(mouseOver(mx,my,215, 175, 200, 65)) {
+				game.gameState = STATE.Game;
+			}
+			/*GIVE UP BUTTON*/
+			else if(mouseOver(mx,my,240,260,165,70)) {
+				game.gameState = STATE.Menu;
+			}
+			
+		}
+		else if(game.gameState == STATE.Victory) {
 			/*NEXT LEVEL*/
 			if(mouseOver(mx,my,210,200,200,50)){
 				if(spawner.nextLevel()) game.gameState = STATE.Game;
@@ -186,27 +221,28 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			
 			/* BACK BUTTON*/
 			else if(mouseOver(mx,my,460,390,150,40)){
-				game.gameState = STATE.Menu;
+				select_level_img = dodge_select_level_img;
+				game.gameState = STATE.Select;
 			}
 		}
 		else if(game.gameState == STATE.FinalVictory) {
 			/* BACK BUTTON*/
 			if(mouseOver(mx,my,460,390,150,40)){
-				game.gameState = STATE.Menu;
+				select_level_img = dodge_select_level_img;
+				game.gameState = STATE.Select;
 			}
 		}
 		else if(game.gameState == STATE.End) {
-			if(mouseOver(mx,my,460,390,150,40)){
-				game.gameState = STATE.Menu;
-			}
+	
 			/*PLAY AGAIN*/
-			else if(mouseOver(mx,my,210,200,200,50)){
+			 if(mouseOver(mx,my,210,200,200,50)){
 				 game.gameState = STATE.Game;
 				 spawner.startLevel(0);
 			}
 			/* BACK BUTTON*/
 			else if(mouseOver(mx,my,460,390,150,40)){
-				game.gameState = STATE.Menu;
+				select_level_img = dodge_select_level_img;
+				game.gameState = STATE.Select;
 			}
 		}
 		
@@ -239,6 +275,84 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			/*IF NOT THEN THE DEFAULT BACKGROUND*/
 			else {
 				background_img = dodge_menu_img;
+			}
+		}
+else if(game.gameState == STATE.Select) {
+			
+			/*LEVEL 1*/
+			if(mouseOver(mx,my,40,115,90,90)){
+				select_level_img = dodge_select_level_1_img;
+			}
+			/*LEVEL 2*/
+			else if(mouseOver(mx,my,155,115,90,90)){
+				select_level_img = dodge_select_level_2_img;
+			}
+			/*LEVEL 3*/
+			else if(mouseOver(mx,my,270,115,90,90)){
+				select_level_img = dodge_select_level_3_img;
+			}
+			/*LEVEL 4*/
+			else if(mouseOver(mx,my,385,115,90,90)){
+				select_level_img = dodge_select_level_4_img;	
+			}
+			/*LEVEL 5*/
+			else if(mouseOver(mx,my,495,115,90,90)){
+				select_level_img = dodge_select_level_5_img;
+			}
+			/*LEVEL 6*/
+			else if(mouseOver(mx,my,40,230,90,90)){
+				select_level_img = dodge_select_level_6_img;
+			}
+			/*LEVEL 7*/
+			else if(mouseOver(mx,my,155,225,90,90)){
+				select_level_img = dodge_select_level_7_img;
+			}
+			/*LEVEL 8*/
+			else if(mouseOver(mx,my,270,225,90,90)){
+				select_level_img = dodge_select_level_8_img;
+			}
+			/*LEVEL 9*/
+			else if(mouseOver(mx,my,382,225,90,90)){
+				select_level_img = dodge_select_level_9_img;
+			}
+			/*LEVEL 10*/
+			else if(mouseOver(mx,my,497,225,90,90)){
+				select_level_img = dodge_select_level_10_img;
+			}
+			/*LEVEL 11*/
+			else if(mouseOver(mx,my,40,340,90,90)){
+				select_level_img = dodge_select_level_11_img;
+			}
+			/*LEVEL 12*/
+			else if(mouseOver(mx,my,153,340,90,90)){
+				select_level_img = dodge_select_level_12_img;
+			}
+			/*LEVEL 13*/
+			else if(mouseOver(mx,my,270,340,90,90)){
+				select_level_img = dodge_select_level_13_img;
+			}
+			/*BACK button*/
+			else if(mouseOver(mx,my,400,345,180,80)){
+				select_level_img = dodge_select_level_back_img;
+			}
+			/*IF NOT THEN THE DEFAULT BACKGROUND*/
+			else {
+				select_level_img = dodge_select_level_img;
+			}
+		}
+	else if(game.gameState==STATE.Pause) {
+	
+		/*RESUME BUTTON*/
+		if(mouseOver(mx,my,215, 175, 200, 65)) {
+			paused_img = paused_resume_img;
+		}
+		/*GIVE UP BUTTON*/
+		else if(mouseOver(mx,my,240,260,165,70)) {
+			paused_img = paused_giveup_img;
+		}
+		/*IF NOT THEN THE DEFAULT BACKGROUND*/
+		else {
+			paused_img = paused_default_img;		
 			}
 		}
 	}
@@ -408,6 +522,11 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			g.setColor(Color.white);
 			g.drawString("Back", 490, 420);
 			g.drawRect(460,390,150,40);
+		}else if(game.gameState == STATE.Pause) {
+			
+			g.drawImage(paused_img,0,0,null);
+			
+			
 		}else if(game.gameState == STATE.Victory) {
 			g.setFont(fnt2);
 			g.drawString("Congratz!", 240, 160);
