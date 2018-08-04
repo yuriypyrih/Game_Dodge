@@ -52,6 +52,7 @@ public class VirusBullet extends GameObject{
 			
 			if(tempObject.getId() == ID.Healer) {
 				if(getBounds().intersects(tempObject.getBounds())) {	//intersects() is a method of Rectangle library
+					AudioPlayer.getSound("sound_deathtrap_spawn").play(1.2f,0.2f);
 					handler.addObject( new DeathTrap(tempObject.getX(),tempObject.getY(),ID.DeathTrap,handler));
 					handler.removeObject(tempObject);
 					handler.removeObject(this);
@@ -59,7 +60,7 @@ public class VirusBullet extends GameObject{
 			}
 		}
 		
-		handler.addObject(new Trail(x, y, ID.Trail, new Color(204, 153, 255), 8, 8, 0.04f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, new Color(204, 153, 255), 8, 8, 0.05f, handler));
 	}
 	
 	

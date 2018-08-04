@@ -16,6 +16,16 @@ public class BasicEnemy extends GameObject{
 			velX = 5;
 	}
 	
+	public BasicEnemy(float  x, float  y, ID id, int velX,int velY, Handler handler) {
+		super(x, y, id);
+		
+		this.handler = handler;
+		
+		
+		this.velY = velY;
+		this.velX = velX;
+	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,16,16);
 	}

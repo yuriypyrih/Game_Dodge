@@ -17,9 +17,18 @@ public class Background_manager  {
 	
 	private Image background_lvl_1= new ImageIcon("res/background_lvl_1.jpg").getImage();
 	private Image background_lvl_2= new ImageIcon("res/background_lvl_2.jpg").getImage();
-	private Image background_lvl_3= new ImageIcon("res/background_lvl_3.jpg").getImage();
-	private Image background_lvl_4= new ImageIcon("res/background_lvl_4.jpg").getImage();
+	private Image background_lvl_3= new ImageIcon("res/background_lvl_3.png").getImage();
+	private Image background_lvl_4= new ImageIcon("res/background_lvl_4.png").getImage();
 	private Image background_lvl_5= new ImageIcon("res/background_lvl_5.jpg").getImage();
+	private Image background_lvl_6= new ImageIcon("res/background_lvl_6.jpg").getImage();
+	private Image background_lvl_7= new ImageIcon("res/background_lvl_7.jpg").getImage();
+	private Image background_lvl_8= new ImageIcon("res/background_lvl_8.jpg").getImage();
+	private Image background_lvl_9= new ImageIcon("res/background_lvl_9.jpg").getImage();
+	private Image background_lvl_10= new ImageIcon("res/background_lvl_10.jpg").getImage();
+	
+	private Image background_lvl_11_0= new ImageIcon("res/background_lvl_11_0.jpg").getImage();
+	//private Image background_lvl_11_1= new ImageIcon("res/background_lvl_11_1.jpg").getImage();
+	
 
 	
 
@@ -53,6 +62,24 @@ public class Background_manager  {
 			} 
 			else if( Spawn.getOutterLevel() == 5) {
 				g.drawImage(background_lvl_5,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 6) {
+				g.drawImage(background_lvl_6,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 7) {
+				g.drawImage(background_lvl_7,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 8) {
+				g.drawImage(background_lvl_8,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 9) {
+				g.drawImage(background_lvl_9,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 10) {
+				g.drawImage(background_lvl_10,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 11) {
+				g.drawImage(background_lvl_11_0,0,0,null);
 			} 
 		}
 		

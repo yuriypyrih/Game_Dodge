@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 public class VirusBossEnemy extends GameObject{
 	
@@ -9,6 +12,8 @@ public class VirusBossEnemy extends GameObject{
 	private Random r = new Random();
 	private float timer;
 	private int scoreKeep = 0;
+	
+	private Image boss_icon_0 = new  ImageIcon("res/virus_boss_icon_100px.png").getImage();
 	
 	public VirusBossEnemy(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
@@ -31,7 +36,7 @@ public class VirusBossEnemy extends GameObject{
 			GameObject tempObject = handler.object.get(i);
 			
 			if(tempObject.getId() == ID.Healer) {
-				handler.addObject( new VirusBullet(x+30,y+30,ID.VirusBullet,handler));
+				handler.addObject( new VirusBullet(x+30,y+64,ID.VirusBullet,handler));
 				return;
 			}
 		}
@@ -74,7 +79,8 @@ public class VirusBossEnemy extends GameObject{
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		g.setColor(new Color(153, 0, 204));
-		g.fillRect((int)x,(int) y, 64, 64);
+		g.drawImage(boss_icon_0,(int)x-18,(int)y-18,null);
+		
+		
 	}
 }

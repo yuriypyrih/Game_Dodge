@@ -22,6 +22,8 @@ public class Healer extends GameObject{
 		return new Rectangle((int)x-6,(int)y-6,22,22);
 	}
 	
+	
+	
 	public void tick() {
 		
 	

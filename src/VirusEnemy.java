@@ -1,8 +1,11 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 public class VirusEnemy extends GameObject{
 	
@@ -10,14 +13,18 @@ public class VirusEnemy extends GameObject{
 	private int bulletTimer = 0;
 	private Random r = new Random();
 	
+	
+	
 	public VirusEnemy(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
 			
 			this.handler = handler;
-			bulletTimer = 30;
+			bulletTimer = 130;
 			
 			velY = 5;
 			velX = 5;
+			
+			
 	}
 	
 	public Rectangle getBounds() {
@@ -42,7 +49,7 @@ public class VirusEnemy extends GameObject{
 		
 		bulletTimer++;
 		
-		if(bulletTimer >100) {
+		if(bulletTimer >200) {
 			bulletTimer = 0;
 			check_For_Health_Packs() ;
 			
@@ -52,7 +59,9 @@ public class VirusEnemy extends GameObject{
 		if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; 
 		if(x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
 		
-		handler.addObject(new Trail(x, y, ID.Trail, new Color(153, 0, 204), 16, 16, 0.04f, handler));
+		
+		//Color(153, 0, 204)
+		handler.addObject(new Trail(x, y, ID.Trail,new  Color(133, 0, 184) ,new Color(153, 0, 204), 16, 16, 0.04f, handler));
 		
 	  
 	}
@@ -60,8 +69,7 @@ public class VirusEnemy extends GameObject{
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		g.setColor(new Color(153, 0, 204));
-		g.fillRect((int)x,(int) y, 16, 16);
+		
 	}
 }
 

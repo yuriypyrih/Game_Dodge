@@ -19,12 +19,17 @@ public class Star extends GameObject{
 	private Image star4_img = new ImageIcon("res/star_animation_4.png").getImage();
 	private Image star5_img = new ImageIcon("res/star_animation_5.png").getImage();
 	
+	
+	
 
 	
 	public Star(float x, float y, ID id, Handler handler) {
 			super(x, y, id);
 			
 			this.handler = handler;
+			
+			AudioPlayer.getSound("sound_star_appear").play(1,0.3f);
+			
 			
 			
 	}

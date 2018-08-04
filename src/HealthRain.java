@@ -21,6 +21,8 @@ public class HealthRain extends GameObject{
 		return new Rectangle((int)x-14,(int)y-14,30,30);
 	}
 	
+	
+	
 	public void tick() {
 		
 		x+=velX;
