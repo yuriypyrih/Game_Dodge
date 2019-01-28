@@ -11,15 +11,13 @@ public class SmartBossBullet extends GameObject{
 	private GameObject player;
 	
 	
-	public SmartBossBullet(float  x, float  y, ID id, Handler handler) {
+	public SmartBossBullet(float  x, float  y, ID id,GameObject player, Handler handler) {
 			super(x, y, id);
 			
 			this.handler = handler;
+			this.player = player;
 			
-			//code for getting the position of player
-			for(int i=0 ; i<handler.object.size(); i++) {
-				if(handler.object.get(i).getId() == ID.Player) player = handler.object.get(i);
-			}
+			
 			
 			velX = 0;
 			velY = 5;
@@ -28,6 +26,8 @@ public class SmartBossBullet extends GameObject{
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,12,12);
 	}
+	
+	
 	
 	public void tick() {
 		//that's HOW OUR ENEMY BEHAVES
@@ -47,13 +47,13 @@ public class SmartBossBullet extends GameObject{
 		if(x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
 		
 		
-	  handler.addObject(new Trail(x, y, ID.Trail, new Color(204, 82, 0), 12, 12, 0.1f, handler));
+	  handler.addObject(new Trail(x, y, ID.Trail, Color.orange, 12, 12, 0.1f, handler));
 	}
 	
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		g.setColor(Color.orange);
+		g.setColor(Color.YELLOW);
 		g.fillRect((int)x,(int) y, 12, 12);
 	}
 }

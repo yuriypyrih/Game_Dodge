@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+
 /*Everything in our game should be considered a GameObject
  * That's why is an abstract class
  * and therefore it will be inhretited by other types of mobs
@@ -23,6 +24,7 @@ public abstract class GameObject {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();		//Hitbox
+	
 	
 	/*Some basics methods to be inherited*/
 	public void setX(float x) {

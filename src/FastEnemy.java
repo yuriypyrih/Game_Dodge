@@ -20,6 +20,8 @@ public class FastEnemy extends GameObject{
 		return new Rectangle((int)x,(int)y,16,16);
 	}
 	
+	
+	
 	public void tick() {
 		//that's HOW OUR ENEMY BEHAVES
 		x+=velX;

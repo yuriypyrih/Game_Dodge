@@ -4,18 +4,25 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
+	private Game game;
+	
+	public static boolean WASDkeys = true;
 	
 	private boolean[] keyDown = new boolean[4];
 	
 	//Constructor for KeyInput class
-	public KeyInput(Handler handler ) {
+	public KeyInput(Handler handler, Game game ) {
 		this.handler = handler;
+		this.game = game;
 		
 		
 		keyDown[0] = false; //W
 		keyDown[1] = false; //S
 		keyDown[2] = false; //A
 		keyDown[3] = false; //D
+		
+		if(FileStore.conf[14] == '0') WASDkeys = true;
+		else if(FileStore.conf[14] == '1') WASDkeys = false;
 	}
 	
 	/*It handles every key event on the keyboard*/
@@ -28,11 +35,17 @@ public class KeyInput extends KeyAdapter{
 			
 			if(tempObject.getId() == ID.Player) {
 				//key events for player
-				
-				if(key == KeyEvent.VK_W) {tempObject.setVelY(-6); keyDown[0] = true;}
-				if(key == KeyEvent.VK_S) {tempObject.setVelY(6);  keyDown[1] = true;}
-				if(key == KeyEvent.VK_A) {tempObject.setVelX(-6); keyDown[2] = true;}
-				if(key == KeyEvent.VK_D) {tempObject.setVelX(6);  keyDown[3] = true;}
+				if(WASDkeys) {
+					if(key == KeyEvent.VK_W) {tempObject.setVelY(-6); keyDown[0] = true;}
+					if(key == KeyEvent.VK_S) {tempObject.setVelY(6);  keyDown[1] = true;}
+					if(key == KeyEvent.VK_A) {tempObject.setVelX(-6); keyDown[2] = true;}
+					if(key == KeyEvent.VK_D) {tempObject.setVelX(6);  keyDown[3] = true;}
+				}else{
+					if(key == KeyEvent.VK_UP) {tempObject.setVelY(-6); keyDown[0] = true;}
+					if(key == KeyEvent.VK_DOWN) {tempObject.setVelY(6);  keyDown[1] = true;}
+					if(key == KeyEvent.VK_LEFT) {tempObject.setVelX(-6); keyDown[2] = true;}
+					if(key == KeyEvent.VK_RIGHT) {tempObject.setVelX(6);  keyDown[3] = true;}
+				}
 				
 				
 			}
@@ -49,11 +62,17 @@ public class KeyInput extends KeyAdapter{
 			
 			if(tempObject.getId() == ID.Player) {
 				//key events for player
-				
-				if(key == KeyEvent.VK_W) keyDown[0]=false;//tempObject.setVelY(0); 
-				if(key == KeyEvent.VK_S) keyDown[1]=false; //tempObject.setVelY(0); 
-				if(key == KeyEvent.VK_A) keyDown[2]=false; //tempObject.setVelX(0); 
-				if(key == KeyEvent.VK_D) keyDown[3]=false; //tempObject.setVelX(0); 
+				if(WASDkeys) {
+					if(key == KeyEvent.VK_W) keyDown[0]=false;//tempObject.setVelY(0); 
+					if(key == KeyEvent.VK_S) keyDown[1]=false; //tempObject.setVelY(0); 
+					if(key == KeyEvent.VK_A) keyDown[2]=false; //tempObject.setVelX(0); 
+					if(key == KeyEvent.VK_D) keyDown[3]=false; //tempObject.setVelX(0); 
+				}else {
+					if(key == KeyEvent.VK_UP) keyDown[0]=false;//tempObject.setVelY(0); 
+					if(key == KeyEvent.VK_DOWN) keyDown[1]=false; //tempObject.setVelY(0); 
+					if(key == KeyEvent.VK_LEFT) keyDown[2]=false; //tempObject.setVelX(0); 
+					if(key == KeyEvent.VK_RIGHT) keyDown[3]=false; //tempObject.setVelX(0); 
+				}
 				
 				//Vertical Movement
 				if(!keyDown[0] && !keyDown[1]) tempObject.setVelY(0);
@@ -64,7 +83,27 @@ public class KeyInput extends KeyAdapter{
 			
 		}
 		
-		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		if(key == KeyEvent.VK_ESCAPE) {
+			if(game.gameState == STATE.Select) {
+				game.gameState = STATE.Menu;
+			}
+			else if(game.gameState == STATE.Settings) {
+				game.gameState = STATE.Menu;
+			}	
+			else if(game.gameState == STATE.Game) {
+				game.gameState = STATE.Pause;
+			}
+			else if(game.gameState == STATE.Pause) {
+				game.gameState = STATE.Game;
+			}
+			else if(game.gameState == STATE.Info_1 || game.gameState == STATE.Info_2
+					|| game.gameState == STATE.Info_3|| game.gameState == STATE.Info_4) {
+				game.gameState = STATE.Select;
+			}
+			else if(game.gameState == STATE.Menu) {
+				System.exit(1);
+			}
+		}
 		
 	}//end of keyReleased Method
 

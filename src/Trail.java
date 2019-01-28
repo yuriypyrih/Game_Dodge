@@ -10,20 +10,48 @@ public class Trail extends GameObject{
 	
 	private Handler handler;
 	private Color color;
+	private Color color2;
 	
 	private int width, height;
 	private float life;
 	
-	//life = 0.001 BIG to 0.1 SMALL
+	//life = 0.001 BIG to 0.1 SMALL, 0.04f
 	
 	
 	public Trail(float x, float y, ID id, Color color, int width, int height, float life, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
-		this.color = color;
+		this.color = color ;
+		this.color2 = null;
 		this.width = width;
 		this.height = height;
 		this.life = life;
+		
+	}
+	
+	//SHADOW TRAIL
+	public Trail(float x, float y, ID id, Color color, int width, int height, float life, float shadowAlpha, Handler handler) {
+		super(x, y, id);
+		this.handler = handler;
+		this.color = color ;
+		this.color2 = null;
+		this.width = width;
+		this.height = height;
+		this.life = life;
+		this.alpha = shadowAlpha;
+		
+	}
+	
+	//MULTIPLE COLOR TRAIL
+	public Trail(float x, float y, ID id, Color color1,Color color2, int width, int height, float life, Handler handler) {
+		super(x, y, id);
+		this.handler = handler;
+		this.color = color1;
+		this.color2 = color2;
+		this.width = width;
+		this.height = height;
+		this.life = life;
+		
 		
 	}
 	
@@ -39,11 +67,27 @@ public class Trail extends GameObject{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(makeTransparent(alpha));
 		
-		g.setColor(color);
-		g.fillRect((int)x, (int)y, width, height);
+		if(color2 == null) {
+			g.setColor(color);
+			g.fillRect((int)x, (int)y, width, height);
+			
+			
+		}else {
+			
+
+			g.setColor(color);// OUTSIDE COLOR
+			g.fillRect((int)x, (int)y, width, height);
+			
+			g.setColor(color2);//INSIDE COLOR
+			g.fillRect((int)x+4, (int)y, width-8, height);
+			g.fillRect((int)x, (int)y+4, width, height-8);
+			
 		
-		//g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1));
-		g2d.setComposite(makeTransparent(1));
+			
+		}
+		
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1));
+		//g2d.setComposite(makeTransparent(1));
 		
 		
 	}
@@ -53,8 +97,13 @@ public class Trail extends GameObject{
 		return (AlphaComposite.getInstance(type,alpha));
 	}
 	
-	public Rectangle getBounds() {
+	public Rectangle getBounds() 
+	{
+		if(color2 == null) {
 		return null;
+		}else {
+			return new Rectangle((int)x, (int)y, width, height);
+		}
 	}
 	
 }

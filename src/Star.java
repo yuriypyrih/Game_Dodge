@@ -1,16 +1,35 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 
 public class Star extends GameObject{
 	
 	private Handler handler;
 	
+	private int star_animation_timer = 0;
+	
+	private Image star0_img = new ImageIcon("res/star.png").getImage();
+	private Image star1_img = new ImageIcon("res/star_animation_1.png").getImage();
+	private Image star2_img = new ImageIcon("res/star_animation_2.png").getImage();
+	private Image star3_img = new ImageIcon("res/star_animation_3.png").getImage();
+	private Image star4_img = new ImageIcon("res/star_animation_4.png").getImage();
+	private Image star5_img = new ImageIcon("res/star_animation_5.png").getImage();
+	
+	
+	
+
+	
 	public Star(float x, float y, ID id, Handler handler) {
 			super(x, y, id);
 			
 			this.handler = handler;
+			
+			AudioPlayer.getSound("sound_star_appear").play(1,0.3f);
+			
 			
 			
 	}
@@ -22,39 +41,33 @@ public class Star extends GameObject{
 	public void tick() {
 		
 		
-		//Collision
-		/*if(y <= 0 || y >= Game.HEIGHT - 60) velY *= -1; 
-		if(x <= 0 || x >= Game.WIDTH - 30) velX *= -1;*/
-		
-	   //handler.addObject(new Trail(x, y, ID.Trail, Color.green, 20, 20, 0.1f, handler));
+		star_animation_timer++;
 	}
 	
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR HEALER SHOULD LOOK LIKE
-		g.setColor(Color.yellow);
-		g.fillRect((int)x, (int)y, 16, 16); //x,y,width,height
-		
-		
-		g.setColor(Color.black);
-		g.fillRect((int)x, (int)y, 16, 2);
-		g.fillRect((int)x, (int)y+2, 6, 2);
-		g.fillRect((int)x, (int)y+4, 4, 2);
-		g.fillRect((int)x, (int)y+6, 2, 4);
-		g.fillRect((int)x, (int)y+10, 4, 2);
-		g.fillRect((int)x, (int)y+12, 6, 2);
-		g.fillRect((int)x, (int)y+14, 16, 2);
-		
-		g.fillRect((int)x+10, (int)y+2, 6, 2);
-		g.fillRect((int)x+12, (int)y+4, 4, 2);
-		g.fillRect((int)x+14, (int)y+6, 2, 4);
-		g.fillRect((int)x+12, (int)y+10, 4, 2);
-		g.fillRect((int)x+10, (int)y+12, 6, 2);
-		
-		g.setColor(Color.yellow);
-		g.drawOval((int)x-2, (int)y-3, 20, 20);
-		
-		
-		
+		if(star_animation_timer<50) {
+			g.drawImage(star0_img,(int)x, (int)y,null);
+		}
+		else if(star_animation_timer < 55) {
+			g.drawImage(star1_img,(int)x, (int)y,null);
+		}
+		else if(star_animation_timer < 60) {
+			g.drawImage(star2_img,(int)x, (int)y,null);
+		}
+		else if(star_animation_timer < 65) {
+			g.drawImage(star3_img,(int)x, (int)y,null);
+		}
+		else if(star_animation_timer < 70) {
+			g.drawImage(star4_img,(int)x, (int)y,null);
+		}
+		else if(star_animation_timer < 75) {
+			g.drawImage(star5_img,(int)x, (int)y,null);
+		}
+		else {
+			star_animation_timer = 0;
+		}
+	
 	}
 }

@@ -6,6 +6,8 @@ public class WormEnemy extends GameObject{
 	
 	private Handler handler;
 	
+	private Color light_pink = new Color(255,153,255);
+	
 	
 	public WormEnemy(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
@@ -57,7 +59,7 @@ public class WormEnemy extends GameObject{
 			
 		}
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.pink, 30, 30, 0.04f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, light_pink, 30, 30, 0.04f, handler));
 		
 		
 	  

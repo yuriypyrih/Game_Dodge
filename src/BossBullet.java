@@ -7,7 +7,7 @@ public class BossBullet extends GameObject{
 	
 	private Handler handler;
 	private Random r = new Random();
-	private Color bloody = new Color(204, 0, 0);
+	//private Color bloody = new Color(204, 0, 0);
 	
 	public BossBullet(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
@@ -32,7 +32,7 @@ public class BossBullet extends GameObject{
 		if(y <= 0 || y >= Game.HEIGHT - 32) handler.removeObject(this); 
 		if(x <= 0 || x >= Game.WIDTH - 16) handler.removeObject(this);
 		
-	  handler.addObject(new Trail(x, y, ID.Trail, bloody, 8, 8, 0.08f, handler));
+	  handler.addObject(new Trail(x, y, ID.Trail, Color.red, 8, 8, 0.08f, handler));
 	}
 	
 	

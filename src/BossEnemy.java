@@ -1,12 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 
 public class BossEnemy extends GameObject{
 	
 	private Handler handler;
 	private float timer;
 	private int scoreKeep = 0;
+	
+	private Image boss_icon_0 = new  ImageIcon("res/scout_boss_icon.png").getImage();
 	
 	public BossEnemy(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
@@ -59,7 +64,6 @@ public class BossEnemy extends GameObject{
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		g.setColor(Color.red);
-		g.fillRect((int)x,(int) y, 64, 64);
+		g.drawImage(boss_icon_0,(int) x, (int) y, null);
 	}
 }

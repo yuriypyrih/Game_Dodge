@@ -14,10 +14,13 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	
 	private Handler handler;
-	private Random r; 
+	//private Random r; 
 	private HUD hud;//you may want to fix/delete this health bar later...
 	private Spawn spawner;
 	private Menu menu;
+	private Background_manager BG_manager;
+	private FileStore Storage;
+	
 	
 	
 	public STATE gameState = STATE.Menu;
@@ -26,23 +29,28 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		
 		//Here we create a Handler object that late will be passed to KeyInput
+		Storage = new FileStore();
 		handler = new Handler();
 		hud = new HUD();
 		spawner = new Spawn(handler, hud);
 		menu = new Menu(this,handler,spawner, hud);
-		this.addKeyListener(new KeyInput(handler));
+		BG_manager = new Background_manager(this);
+		this.addKeyListener(new KeyInput(handler,this));
 		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 		
 	
 		AudioPlayer.load();
 		
-		AudioPlayer.getMusic("music").loop();
-		AudioPlayer.getMusic("music").setVolume(0.1f);
 		
-		new Window(WIDTH, HEIGHT,"Mini Game",this);
+		AudioPlayer.playMusic("music_menu");
+		
+		 new Window(WIDTH, HEIGHT,"Dodge Game",this);
+		 
+		 //Storage = new FileStore();
 		
 		
-		r = new Random();
+		
 		
 		
 	}
@@ -104,24 +112,31 @@ public class Game extends Canvas implements Runnable{
 			spawner.tick();
 			hud.tick();
 			
+			
 			//INSIDE OF THE GAME CHANGING STATES
 			if(hud.HEALTH<=0) {
 				gameState = STATE.End;
 				handler.clearGame();
-				handler.addObject(new WarningEffect(1,handler));
+				//handler.addObject(new WarningEffect(0,0,1,handler));
 				
 			
 			}else if (spawner.Victory()) {
-				if(spawner.getOutterLevel() != 5) {
+				if(spawner.getOutterLevel() != 11) { // 11 is the last level so far
 					gameState = STATE.Victory;
 				}else {
+					AudioPlayer.playMusic("music_ending");
 					gameState = STATE.FinalVictory;
 				}
 				handler.clearGame();
 			}
-		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty 
-				|| gameState == STATE.Help || gameState == STATE.Victory || gameState == STATE.FinalVictory|| gameState == STATE.End ) {
+		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Settings 
+				|| gameState == STATE.Info_1 || gameState == STATE.Info_2|| gameState == STATE.Info_3|| gameState == STATE.Info_4 
+				|| gameState == STATE.Victory || gameState == STATE.FinalVictory|| gameState == STATE.End ) {
 			handler.tick();
+			menu.tick();
+		
+		}
+		else if(gameState == STATE.Pause) {
 			menu.tick();
 		}
 		
@@ -141,12 +156,19 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0,0,WIDTH,HEIGHT);
 		
+		BG_manager.render(g);
 		handler.render(g);
 		
 		if(gameState == STATE.Game) {
 			hud.render(g);
-		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Difficulty  || gameState == STATE.Help
-				|| gameState == STATE.Victory || gameState == STATE.FinalVictory || gameState == STATE.End) {
+		}else if(gameState == STATE.Menu || gameState == STATE.Select || gameState == STATE.Settings  
+			|| gameState == STATE.Info_1 || gameState == STATE.Info_2|| gameState == STATE.Info_3|| gameState == STATE.Info_4 
+			|| gameState == STATE.Victory || gameState == STATE.FinalVictory || gameState == STATE.End) {
+			
+			menu.render(g);
+		}
+		else if(gameState == STATE.Pause) {
+			hud.render(g);
 			menu.render(g);
 		}
 		

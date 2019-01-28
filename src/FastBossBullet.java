@@ -23,6 +23,7 @@ public class FastBossBullet extends GameObject{
 		return new Rectangle((int)x,(int)y,8,8);
 	}
 	
+	
 	public void tick() {
 		//that's HOW OUR ENEMY BEHAVES
 		x+=velX;
