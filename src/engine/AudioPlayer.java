@@ -38,6 +38,7 @@ public class AudioPlayer {
 			musicMap.put("music_ending", new Music("res/music_ending.ogg"));
 			
 			
+			soundMap.put("sound_damaged", new Sound("res/damaged_sound.ogg"));
 			soundMap.put("sound_click", new Sound("res/sound_click.ogg"));
 			soundMap.put("sound_collect", new Sound("res/sound_collect.ogg"));
 			soundMap.put("sound_star_appear", new Sound("res/sound_star_appear.ogg"));

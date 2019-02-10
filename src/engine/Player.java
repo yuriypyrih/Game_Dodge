@@ -10,12 +10,14 @@ import entities.Trail;
 
 public class Player extends GameObject{
 	
-	private TaskManager task_manager = new TaskManager();
+	
 	private Handler handler;
+	private TaskManager task_manager ;
 	private Spawn spawner;
 	private int stars = 0 ;
 	public static boolean poisoned = false;
 	public static boolean immune = false; /*CHANGE THIS TO TRUE WHENEVER YOU WANT TO TEST A LEVEL*/
+	public static Color PLAYER_COLOR = Color.WHITE;
 
 
 	//Contructor
@@ -23,6 +25,7 @@ public class Player extends GameObject{
 		super(x, y, id);
 		this.handler = handler;
 		this.spawner = spawner;
+		task_manager = new TaskManager(handler);
 		
 	}
 	
@@ -59,7 +62,7 @@ public class Player extends GameObject{
 	
 
 	public void tick() {
-		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 32, 32, 0.2f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, PLAYER_COLOR, 32, 32, 0.2f, handler));
 		//Behavior
 		x += velX;
 		y += velY;

@@ -37,7 +37,10 @@ public class WarningEffect extends GameObject{
 		this.y = y;
 		this.whichWarning = whichWarning;
 		
+		
+		
 			if(whichWarning == 0) {
+				
 				effect_img = new ImageIcon("res/warning_red.png").getImage();
 				
 				alpha = 0.06f;
@@ -65,9 +68,15 @@ public class WarningEffect extends GameObject{
 				effect_img = new ImageIcon("res/thunder_effect.png").getImage();
 				alpha = 1;
 			}
+			else if(whichWarning == 8) {
+				effect_img = new ImageIcon("res/damaged_filter2.png").getImage();
+				alpha = 0.06f;
+			
+			}
 		
 		this.handler = handler;
 		life = 0.05f;
+		
 		
 		
 		
@@ -171,7 +180,7 @@ public class WarningEffect extends GameObject{
 		}
 		
 		/*DEATHTRAP EFFECT*/
-		if(whichWarning == 6) {
+		else if(whichWarning == 6) {
 			timer++;
 			
 			if(timer<20 && alpha <= 0.9) {
@@ -195,6 +204,18 @@ public class WarningEffect extends GameObject{
 			
 			}
 
+		}
+		else if(whichWarning == 8) {
+			
+			if(singleWarning > 0) {
+				if(alpha >= 0.8 || alpha <= 0.01) {
+					singleWarning--;
+					life *= -1;
+				}
+				alpha += life ;
+				if(alpha >= 1) alpha = 1;
+			
+			}else handler.removeObject(this);
 		}
 		
 	}
