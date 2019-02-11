@@ -37,8 +37,8 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private Image dodge_select_level_9_img = new ImageIcon("res/dodge_select_level_9.jpg").getImage();
 	private Image dodge_select_level_10_img = new ImageIcon("res/dodge_select_level_10.jpg").getImage();
 	private Image dodge_select_level_11_img = new ImageIcon("res/dodge_select_level_11.jpg").getImage();
-	//private Image dodge_select_level_12_img = new ImageIcon("res/dodge_select_level_12.jpg").getImage();
-	//private Image dodge_select_level_13_img = new ImageIcon("res/dodge_select_level_13.jpg").getImage();
+	private Image dodge_select_level_12_img = new ImageIcon("res/dodge_select_level_12.jpg").getImage();
+	private Image dodge_select_level_13_img = new ImageIcon("res/dodge_select_level_13.jpg").getImage();
 	private Image dodge_select_level_back_img = new ImageIcon("res/dodge_select_level_back.jpg").getImage();
 	private Image select_level_img = dodge_select_level_img;
 	
@@ -230,13 +230,15 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			}
 			/*LEVEL 12*/
 			else if(mouseOver(mx,my,153,340,90,90)){
-				//game.gameState = STATE.Game;
-				//spawner.startLevel(12);
+				game.gameState = STATE.Game;
+				AudioPlayer.playMusic("music_lvl_12");
+				spawner.startLevel(12);
 				
 			}
 			/*LEVEL 13*/
 			else if(mouseOver(mx,my,270,340,90,90)){
 				//game.gameState = STATE.Game;
+				//AudioPlayer.playMusic("music_lvl_13");
 				//spawner.startLevel(13);
 				
 			}
@@ -265,7 +267,7 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 					FileStore.update(12, '1');
 				}else if(spawner.difficulty == 2) {
 					spawner.difficulty = 1;
-					FileStore.update(14, '0');
+					FileStore.update(12, '0');
 				}
 				
 			}
@@ -538,11 +540,11 @@ else if(game.gameState == STATE.Select) {
 			}
 			/*LEVEL 12*/
 			else if(mouseOver(mx,my,153,340,90,90)){
-				//select_level_img = dodge_select_level_12_img;
+				select_level_img = dodge_select_level_12_img;
 			}
 			/*LEVEL 13*/
 			else if(mouseOver(mx,my,270,340,90,90)){
-				//select_level_img = dodge_select_level_13_img;
+				select_level_img = dodge_select_level_13_img;
 			}
 			/*BACK button*/
 			else if(mouseOver(mx,my,400,345,180,80)){
@@ -778,8 +780,8 @@ else if(game.gameState == STATE.Info_4) {
 			level_locker(g, 10, 560, 210);
 			level_locker(g, 11, 100, 320);
 			
-			g.drawImage(coming_soon_img,185,325,null);
-			g.drawImage(coming_soon_img,300,325,null);
+			//g.drawImage(coming_soon_img,185,325,null);
+			//g.drawImage(coming_soon_img,300,325,null);
 			//g.drawRect(40, 180, 120, 120);
 			
 		}

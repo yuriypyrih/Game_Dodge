@@ -1,32 +1,7 @@
 package engine;
 import java.util.Random;
 
-import entities.BasicEnemy;
-import entities.BossEnemy;
-import entities.BouncerBossEnemy;
-import entities.BouncerEnemy;
-import entities.ExplosiveBossEnemy;
-import entities.ExplosiveEnemy;
-import entities.FastBossEnemy;
-import entities.FastEnemy;
-import entities.Healer;
-import entities.HealthRain;
-import entities.HybridBossEnemy;
-import entities.ShadowBossEnemy;
-import entities.ShadowEnemy;
-import entities.SmartBossEnemy;
-import entities.SmartEnemy;
-import entities.SpookyEnemy;
-import entities.SpookyStar;
-import entities.Star;
-import entities.VenomBossEnemy;
-import entities.VenomEnemy;
-import entities.VirusBossEnemy;
-import entities.VirusEnemy;
-import entities.VoidBossEnemy;
-import entities.VoidEnemy;
-import entities.WormBossEnemy;
-import entities.WormEnemy;
+import entities.*;
 
 public class Spawn {
 	
@@ -49,7 +24,8 @@ public class Spawn {
 		this.hud = hud;
 		
 		if(FileStore.conf[12] == '0') difficulty = 1; 
-		else if(FileStore.conf[12] == '1') difficulty = 2; 
+		else if(FileStore.conf[12] == '1') difficulty = 2;
+		else difficulty = 1; // I don't udnerstand why
 		
 		for(int i = 0; i<20 ; i++) alreadyExecuted[i] = false;
 		
@@ -688,11 +664,37 @@ public class Spawn {
 				 }
 				 
 				
-				
-				
 			
 			}//end of level 11
-			
+			else if(outterLevel == 12) { /*MISSION LVL 12*/
+				
+				if(hud.getStageTimer() == 5) {
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+				}
+				else if(hud.getStageTimer() == 80) {
+					
+					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar1) && !alreadyExecuted[0]) {
+	
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+					alreadyExecuted[0] = true;
+					hud.setStageTimer(81);
+				}
+				else if(hud.getStageTimer() == 150 && !alreadyExecuted[1]) {
+					
+					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar2) && !alreadyExecuted[1]) {
+	
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+					alreadyExecuted[1] = true;
+					hud.setStageTimer(151);
+				}
+				else if(hud.getStageTimer() == 200 && alreadyExecuted[1]) {
+					handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+			}//end of level 12
 		
 		}//stageTimer
 	}//tick()

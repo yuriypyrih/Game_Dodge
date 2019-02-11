@@ -92,7 +92,7 @@ public class HUD {
 		
 		
 		//g.drawString("Score: " + score ,15 ,64);
-		//graphics2.drawString("Stage Timer: " + innerLevel ,15, 90);
+		graphics2.drawString("Stage Timer: " + innerLevel ,15, 90);
 		//graphics2.drawString( diff + " MODE",15, 64);
 		//graphics2.drawString( stars + "/3 Stars" ,15, 80);
 		//graphics2.drawString("Level "+ Spawn.getOutterLevel(), 15, 96);

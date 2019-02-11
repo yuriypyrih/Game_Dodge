@@ -41,6 +41,7 @@ public enum ID {
 	ShadowBossBullet,
 	SpookyEnemy,
 	SpookyStar,
+	ChameleonEnemy,
 	Star,
 	Trail,
 	WarningEffect,

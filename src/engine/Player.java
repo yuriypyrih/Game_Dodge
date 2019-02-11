@@ -94,20 +94,26 @@ public class Player extends GameObject{
 					|| tempObject.getId() == ID.VirusBossEnemy || tempObject.getId() == ID.BouncerBossEnemy
 					|| tempObject.getId() == ID.VenomBossEnemy || tempObject.getId() == ID.VenomEnemy
 					|| tempObject.getId() == ID.VoidEnemy || tempObject.getId() == ID.VoidBossEnemy 
-					|| tempObject.getId() == ID.ShadowEnemy || tempObject.getId() == ID.ShadowBossEnemy) {//tempObject is now basic enemy
+					|| tempObject.getId() == ID.ShadowEnemy || tempObject.getId() == ID.ShadowBossEnemy
+					|| tempObject.getId() == ID.ChameleonEnemy) {//tempObject is now basic enemy
 				if(getBounds().intersects(tempObject.getBounds())) {	//intersects() is a method of Rectangle library
 					//collision
+					
 					if(immune != true) {
+						
 						 if(spawner.difficulty == 1) {
-								HUD.HEALTH -= 8;
+								HUD.HEALTH -= 20;
 							}
 							else if(spawner.difficulty == 2) {
-								HUD.HEALTH -= 20;
+								HUD.HEALTH -= 30;
+								System.out.println("damage taken");
+							}
+							else {
+								System.out.println("damage didn't taken " + spawner.difficulty);
 							}
 							
 						 task_manager.startTask_player_damaged();
 					}
-			
 				}
 			}else if(tempObject.getId() == ID.BossBullet || tempObject.getId() == ID.FastBossBullet 
 					|| tempObject.getId() == ID.SmartBossBullet || tempObject.getId() == ID.VirusBullet 
@@ -132,9 +138,7 @@ public class Player extends GameObject{
 						AudioPlayer.getSound("sound_deathtrap_collect").play(1f,0.6f);
 						
 						//collision
-						if(spawner.difficulty == 0) {
-							HUD.HEALTH -= 30;
-						}else if(spawner.difficulty == 1) {
+						 if(spawner.difficulty == 1) {
 							HUD.HEALTH -= 40;
 						}
 						else if(spawner.difficulty == 2) {
@@ -175,12 +179,10 @@ public class Player extends GameObject{
 				 if(tempObject.getId() == ID.Healer) {	//tempObject is now basic enemy
 				if(getBounds().intersects(tempObject.getBounds())) {	//intersects() is a method of Rectangle library
 					//collision
-					if(spawner.difficulty == 0) {
-						HUD.HEALTH += 40;
-					}else if(spawner.difficulty == 1) {
-						HUD.HEALTH += 12;
-					}else if(spawner.difficulty == 2) {
+					 if(spawner.difficulty == 1) {
 						HUD.HEALTH += 10;
+					}else if(spawner.difficulty == 2) {
+						HUD.HEALTH += 8;
 					}
 					
 					handler.removeObject(tempObject);

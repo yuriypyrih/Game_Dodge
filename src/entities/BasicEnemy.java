@@ -36,6 +36,8 @@ public class BasicEnemy extends GameObject{
 		return new Rectangle((int)x,(int)y,16,16);
 	}
 	
+	
+	
 	public void tick() {
 		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.04f, handler));
 		//that's HOW OUR ENEMY BEHAVES
