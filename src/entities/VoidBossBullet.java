@@ -24,7 +24,7 @@ public class VoidBossBullet extends GameObject{
 			
 			//code for getting the position of player
 			for(int i=0 ; i<handler.getObjectList().size(); i++) {
-				if(handler.getObjectList().get(i).getId() == ID.VoidBossEnemy) boss = handler.getObjectList().get(i);
+				if(handler.getObjectList().get(i).getId() == ID.VoidBossEnemy || handler.getObjectList().get(i).getId() == ID.ChameleonBossEnemy) boss = handler.getObjectList().get(i);
 			}
 	}
 	
