@@ -24,7 +24,7 @@ public class TaskManager {
     		AudioPlayer.getSound("sound_damaged").play(0.8f,0.1f);
     		handler.addObject(new WarningEffect(0,0,8,handler));
     		
-            timer.schedule(new Task_player_damaged(), 400);
+            timer.schedule(new Task_player_damaged(), 250);
     	}
     	
     }

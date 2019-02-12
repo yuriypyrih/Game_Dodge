@@ -55,13 +55,16 @@ public class FastBossEnemy extends GameObject{
 		
 		//Collision
 		//if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; //our object is 16 px tall, and our center of mass is left-down at the bottom
-		if(x <= 0 || x >= (Game.WIDTH - 64)) {
+		if(x <= 0 && velX < 0) {
+			velX *= -1;
+		}
+		if( x >= (Game.WIDTH - 64) && velX > 0) {
 			
 				velX *= -1;
 				
 				// INCREASING SPEED
-			if(velX < 14 && velX > -14) {
-				velX *= 1.2;
+			if(velX < 25 && velX > -25) {
+				velX *= 1.5;
 				System.out.println("velX is" + velX);
 			}
 		}

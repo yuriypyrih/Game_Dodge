@@ -73,6 +73,8 @@ public class WarningEffect extends GameObject{
 				alpha = 0.06f;
 			
 			}
+			
+			
 		
 		this.handler = handler;
 		life = 0.05f;

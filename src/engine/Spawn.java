@@ -695,6 +695,13 @@ public class Spawn {
 					handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
 				}
 			}//end of level 12
+			else if(outterLevel == 13) { /*MISSION LVL 13*/
+				
+				if(hud.getStageTimer() == 1) {
+					handler.addObject( new ChameleonBossEnemy((Game.WIDTH/2-20),-70,ID.ChameleonBossEnemy,handler)); //CHAMELEON BOSS
+				}
+				
+			}
 		
 		}//stageTimer
 	}//tick()

@@ -3,8 +3,11 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 import engine.AudioPlayer;
 import engine.Game;
@@ -13,18 +16,27 @@ import engine.Handler;
 import engine.ID;
 import engine.WarningEffect;
 
-public class ChameleonEnemy extends GameObject{
+public class ChameleonBossEnemy extends GameObject{
+	
+	
+	private Image boss_icon_1 = new  ImageIcon("res/scout_boss_icon.png").getImage();
+	private Image boss_icon_3_center = new  ImageIcon("res/smart_boss_icon_center.png").getImage();
+	private Image boss_icon_3_left = new  ImageIcon("res/smart_boss_icon_left.png").getImage();
+	private Image boss_icon_3_right = new  ImageIcon("res/smart_boss_icon_right.png").getImage();
+	private Image boss_icon_4 = new ImageIcon("res/worm_boss_icon.png").getImage();
 	
 	private Handler handler;
 	private GameObject player;
-	private int chameleon_timer = -40; // preset so it will wait 
-	private int bulletTimer = 0;
+	private int chameleon_timer = -100; // preset so it will wait before changing
+	private int changing_delay = 0; // This is for clarity of the sprite
+	private int bulletTimer = -10;
+	private float timer = 160;
 	
 	private float shadowAlpha = 1;
 	private boolean goStealth = true;
 	private int stealthTimer = 0;
 	
-	private int width = 16 , height = 16;
+	private int width = 64 , height = 64;
 	
 	private Random r = new Random();
 	private int chameleon_form = 0;
@@ -33,11 +45,12 @@ public class ChameleonEnemy extends GameObject{
 	
 	private Color chameleon_color = Color.WHITE;
 	private Color light_pink = new Color(255,153,255);
+	private Color light_blue = new Color(128, 212, 255);
 	private Color virus_purple = new Color(153, 0, 204);
 	private Color Brown = new Color(201,112,48);
 	private Color void_color = new Color(77, 77, 255);
 	
-	public ChameleonEnemy(float  x, float  y, ID id, Handler handler) {
+	public ChameleonBossEnemy(float  x, float  y, ID id, Handler handler) {
 			super(x, y, id);
 			
 			this.handler = handler;
@@ -47,19 +60,11 @@ public class ChameleonEnemy extends GameObject{
 				if(handler.getObjectList().get(i).getId() == ID.Player) player = handler.getObjectList().get(i);
 			}
 			
-			velY = 5;
-			velX = 5;
+			velY = 0.6f;
+			velX = 0;
 	}
 	
-	public ChameleonEnemy(float  x, float  y, ID id, int velX,int velY, Handler handler) {
-		super(x, y, id);
-		
-		this.handler = handler;
-		
-		
-		this.velY = velY;
-		this.velX = velX;
-	}
+
 	
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,width,height);
@@ -79,26 +84,40 @@ public class ChameleonEnemy extends GameObject{
 	//This methods fixes any positional problems upon transofrmation of te chameleon
 	private void debug_position() {
 		
-		if( x < 0)  x = 0;
-		if( x > Game.WIDTH - width) x =  Game.WIDTH - width;
-		if( y < 0) y = 0;
-		if( y > Game.HEIGHT - width*2) y = Game.HEIGHT - width*2;
+		if( x < 0)  x = 10;
+		if( x > Game.WIDTH - width) x =  Game.WIDTH - (width+10);
+		 y = 30;
+		//if( y > Game.HEIGHT - width*2) y = Game.HEIGHT - width*2;
 	}
 	
 	
 	
 	public void tick() {
 		
+	
 		
-		chameleon_timer++ ;
-		if(chameleon_timer >= 200 && shadowAlpha >= 0.9f) {
-			shadowAlpha = 1;
-			chameleon_form = r.nextInt(10) + 1;
+		
+		
+		
+		
+		
+		changing_delay ++;
+		chameleon_timer++;
+		bulletTimer++;
+		
+		if(chameleon_timer >= 200 && x > 420 && x < 560 && velX < 0 && velY == 0) {
+
+			
+			//debug_position();
+			chameleon_form = r.nextInt(4) + 1;
 			if(chameleon_form != chameleon_prev_form) {
+				handler.addObject(new ChameleonChanging(x,y,ID.ChameleonChanging,this, handler));
+				changing_delay = 0;
 				chameleon_prev_form = chameleon_form;
+				bulletTimer = -30;
 				just_changed_form = true;
 				debug_position();
-				AudioPlayer.getSound("sound_chameleon").play(0.8f,0.15f);
+				
 			}
 			
 			chameleon_timer = 0;
@@ -108,129 +127,149 @@ public class ChameleonEnemy extends GameObject{
 			
 		//that's HOW OUR ENEMY BEHAVES
 		if(chameleon_form == 0) {
-			handler.addObject(new Trail(x, y, ID.Trail, Color.WHITE, width, height, 0.04f, handler));
-			chameleon_color = Color.WHITE;
+			if(timer<= 0) {
+				velY = 0;
+				if(velX==0) { 
+					velX = 5;
+				}
+			}else timer--;
+			
 			x+=velX;
 			y+=velY;
-			
-			//Collision
-			if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
-			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
+				
+		//Collision
+		//if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
+		if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
+		
 		}
-		else if(chameleon_form == 1) { // BasicEnemy form
-
-			handler.addObject(new Trail(x, y, ID.Trail, Color.RED, width, height, 0.04f, handler));
+		else if(chameleon_form == 1) { // Basic Boss form
 			
-
-			if(width > 16 || height > 16){
-				width--;
-				height--;
-			}
+			
 			
 			if( velX != 5 && velX != -5) {
 				if( velX < 0) velX = -5;
 				else velX = 5;	
 			}
 			
-			if( velY != 5 && velY != -5) {
-				if(velY < 0) velY = - 5;
-				else velY = 5;	
+			if( velY != 0) {
+				if(velY <= 15) velY ++;
+				else velY --;	
 			}
+	
+			x+=velX;
+			y+=velY;
+			
+			if(bulletTimer>= 10) {
+				bulletTimer = 0;
+				handler.addObject(new BossBullet(x+30,y+60,ID.BossBullet,handler));
+			}
+			
+			//Collision
+			//if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
+			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
+		}
+		
+		else if(chameleon_form == 2) { //Fast Boss form
+			
+			if( velY != 0) {
+				if(velY <= 10) velY ++;
+				else velY --;	
+			}
+			
+			
+			handler.addObject(new Trail(x, y, ID.Trail, light_blue, 64, 64, 0.1f, handler));
 			
 			x+=velX;
 			y+=velY;
 			
-			//Collision
-			if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
-			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
-		}
-		else if(chameleon_form == 2) { //FastEnemy form
-			chameleon_color = Color.CYAN;
-			handler.addObject(new Trail(x, y, ID.Trail, chameleon_color, width, height, 0.04f, handler));
+			if(bulletTimer>=50) {
+				bulletTimer = 0;
+				handler.addObject(new FastBossBullet(x+30,y+60,ID.FastBossBullet,handler));
+			}
 			
+			//Collision
+			if(x <= 0 && velX < 0) {
+				velX *= -1;
+				// INCREASING SPEED
+				if(velX < 25 && velX > -25) velX *= 1.4;
+			}
+			if( x >= (Game.WIDTH - 64) && velX > 0) {
+					velX *= -1;
+					// INCREASING SPEED
+				if(velX < 25 && velX > -25) velX *= 1.4;			
+			}
+		}
+		
+		else if(chameleon_form == 3) { //Smart Boss form
 
-			if(width > 16 || height > 16){
-				width--;
-				height--;
+			if( velX != 5 && velX != -5) {
+				if( velX < 0) velX = -5;
+				else velX = 5;	
 			}
 			
-			if( velX != 1 && velX != -1) {
-				if( velX < 0) velX = -1;
-				else velX = 1;	
+			if( velY != 0) {
+				if(velY <= 10) velY ++;
+				else velY --;	
 			}
-			
-			if( velY != 10 && velY != -10) {
-				if(velY < 0) velY = - 10;
-				else velY = 10;	
-			}
-				
 			
 			x+=velX;
 			y+=velY;
 			
+			if(bulletTimer>=35) {
+				bulletTimer = 0;
+				handler.addObject(new SmartBossBullet(x+30,y+70,ID.SmartBossBullet,player,handler));
+			}
+			
 			//Collision
-			if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
+			//if(y <= 0 || y >= Game.HEIGHT - width*2) velY *= -1; 
 			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
-			
-			
 		}
-		else if(chameleon_form == 3) { //SmartEnemy form
-			chameleon_color = Color.ORANGE;
-			handler.addObject(new Trail(x, y, ID.Trail, chameleon_color, width, height, 0.04f, handler));
+		else if(chameleon_form == 4) { //Worm Boss form
+			System.out.println("velY:" + velY);
+			 if( y > 70 ) handler.addObject(new Trail(x, y, ID.Trail, light_pink, 64, 64, 0.08f, handler));
 			
-			if(width > 16 || height > 16){
-				width--;
-				height--;
-			}
+			/*if( velX != 5 && velX != -5 && velX != 0 && velX != 12) {
+				if( velX < 0) velX = -5;
+				else velX = 5;	
+			}*/
 			
-			x += velX;
-			y += velY;
-			
-			float diffY = y - player.getY() -16;
-			float diffX = x - player.getX() -16;
-			float distance = (float) Math.sqrt( (x-player.getX())*(x-player.getX()) + (y-player.getY())*(y-player.getY())  );
-			
-			velX = ((-2/distance) * diffX);
-			velY = ((-2/distance) * diffY);
-		}
-		else if(chameleon_form == 4) { //WormEnemy form
-			chameleon_color = light_pink;
-			handler.addObject(new Trail(x, y, ID.Trail, chameleon_color, width, height, 0.04f, handler));
-			
-			if(width > 30 || height > 30){
-				width--;
-				height--;
-			}else if(width < 30 || height < 30){
-				width++;
-				height++;
-			}
-			
+				
 			x+=velX;
 			y+=velY;
 			
-			//Collision
-			if(y <= 1 ) {
-				y++;
-				velY = 0;
-				velX = -10;
+			if(bulletTimer>=5 && velX == -5) {
+				bulletTimer = 0;
+				handler.addObject(new WormBossBullet(x+30,y+25,ID.WormBossBullet,handler));
 			}
-			else if(x <= 1 ) {
+			
+			
+			if(x <= 10 ) {
+				System.out.println("Fuking hitted it");
 				x++;
-				velY = 10;
+				velY = 12;
 				velX = 0;
 			}
-			else if( y >= Game.HEIGHT - width*2 ) {
+			else if( y >= Game.HEIGHT - 99) {
+				System.out.println("BUT I AM IDIOT 1");
 				y--;
 				velY = 0;
-				velX = 10;
+				velX = 12;
 			}
-			else if( x >= Game.WIDTH - (width + 5)) {
+			else if( x >= Game.WIDTH - 80) {
+				System.out.println("BUT I AM IDIOT 2");
 				x--;
-				velY = -10;
+				velY = -12;
 				velX = 0;
+			}	
+			else if(y <= 30 ) {
+				System.out.println("BUT I AM IDIOT 3");
+				y++;
+				velY = 0;
+				velX = -5;
 			}
 		}
-		else if(chameleon_form == 5) { //VirusEnemy form
+		/*
+		else if(chameleon_form == 5) { //Virus Boss form
 			chameleon_color = virus_purple;
 			handler.addObject(new Trail(x, y, ID.Trail,new  Color(133, 0, 184) ,new Color(153, 0, 204), 16, 16, 0.04f, handler));
 			
@@ -265,7 +304,7 @@ public class ChameleonEnemy extends GameObject{
 			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
 			
 		}
-		else if(chameleon_form == 6) { //BouncerForm form
+		else if(chameleon_form == 6) { //Bouncer Boss form
 			chameleon_color = Color.green;
 			handler.addObject(new Trail(x, y, ID.Trail, chameleon_color, width, height, 0.04f, handler));
 			
@@ -285,7 +324,7 @@ public class ChameleonEnemy extends GameObject{
 			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
 			
 		}
-		else if(chameleon_form == 7) { //ExplosiveEnemy form
+		else if(chameleon_form == 7) { //Explosive Boss form
 			chameleon_color = Brown;
 			handler.addObject(new Trail(x, y, ID.Trail, chameleon_color, width, height, 0.04f, handler));
 			
@@ -444,7 +483,7 @@ public class ChameleonEnemy extends GameObject{
 			if(x <= 0 || x >= Game.WIDTH - width) velX *= -1;
 		}
 		
-		
+		*/
 		
 	  
 	}//end of tick()
@@ -452,7 +491,23 @@ public class ChameleonEnemy extends GameObject{
 	
 	public void render(Graphics g) {
 		//THAT'S HOW OUR ENEMY SHOULD LOOK LIKE
-		
+		if(chameleon_form == 0) {
+			g.setColor(Color.WHITE);
+			g.fillRect((int)x,(int) y, width, height);
+		}
+		else if(chameleon_form ==1 && changing_delay > 10) {
+			g.drawImage(boss_icon_1, (int)x,(int) y, null);
+		}
+		else if(chameleon_form ==2 && changing_delay > 10) {
+			//g.setColor(Color.CYAN);
+			//g.fillRect((int)x,(int) y, width, height);
+		}
+		else if(chameleon_form ==3 && changing_delay > 10) {
+			g.drawImage(boss_icon_3_center, (int)x-16,(int) y-16, null);
+		}
+		else if(chameleon_form ==4 && changing_delay > 10 && y<= 70) {
+			g.drawImage(boss_icon_4, (int)x-16,(int) y-16, null);
+		}
 		
 	}
 }

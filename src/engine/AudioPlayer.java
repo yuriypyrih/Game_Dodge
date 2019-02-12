@@ -65,6 +65,8 @@ public class AudioPlayer {
 			soundMap.put("sound_final_form", new Sound("res/sound_final_form.ogg"));
 			soundMap.put("sound_realise", new Sound("res/sound_realise.ogg"));
 			
+			soundMap.put("sound_chameleon", new Sound("res/sound_chameleoen_change.ogg"));
+			
 			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block

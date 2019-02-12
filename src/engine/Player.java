@@ -102,10 +102,10 @@ public class Player extends GameObject{
 					if(immune != true) {
 						
 						 if(spawner.difficulty == 1) {
-								HUD.HEALTH -= 20;
+								HUD.HEALTH -= 25;
 							}
 							else if(spawner.difficulty == 2) {
-								HUD.HEALTH -= 30;
+								HUD.HEALTH -= 35;
 								System.out.println("damage taken");
 							}
 							else {

@@ -42,6 +42,8 @@ public enum ID {
 	SpookyEnemy,
 	SpookyStar,
 	ChameleonEnemy,
+	ChameleonBossEnemy,
+	ChameleonChanging,
 	Star,
 	Trail,
 	WarningEffect,

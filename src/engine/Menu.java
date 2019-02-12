@@ -237,9 +237,9 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			}
 			/*LEVEL 13*/
 			else if(mouseOver(mx,my,270,340,90,90)){
-				//game.gameState = STATE.Game;
+				game.gameState = STATE.Game;
 				//AudioPlayer.playMusic("music_lvl_13");
-				//spawner.startLevel(13);
+				spawner.startLevel(13);
 				
 			}
 			
