@@ -27,10 +27,12 @@ public class Background_manager  {
 	private Image background_lvl_9= new ImageIcon("res/background_lvl_9.jpg").getImage();
 	private Image background_lvl_10= new ImageIcon("res/background_lvl_10.jpg").getImage();
 	
-	private Image background_lvl_11_0= new ImageIcon("res/background_lvl_11_0.jpg").getImage();
-	//private Image background_lvl_11_1= new ImageIcon("res/background_lvl_11_1.jpg").getImage();
+	private Image background_lvl_11= new ImageIcon("res/background_lvl_11.png").getImage();
+	
 	
 	private Image background_lvl_12= new ImageIcon("res/background_lvl_12.png").getImage();
+	private Image background_lvl_13_0= new ImageIcon("res/background_lvl_13_0.png").getImage();
+	
 	
 
 	
@@ -82,10 +84,13 @@ public class Background_manager  {
 				g.drawImage(background_lvl_10,0,0,null);
 			} 
 			else if( Spawn.getOutterLevel() == 11) {
-				g.drawImage(background_lvl_11_0,0,0,null);
+				g.drawImage(background_lvl_11,0,0,null);
 			} 
 			else if( Spawn.getOutterLevel() == 12) {
 				g.drawImage(background_lvl_12,0,0,null);
+			} 
+			else if( Spawn.getOutterLevel() == 13) {
+				g.drawImage(background_lvl_13_0,0,0,null);
 			} 
 		}
 		

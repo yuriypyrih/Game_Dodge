@@ -36,6 +36,7 @@ public class AudioPlayer {
 			musicMap.put("music_lvl_10", new Music("res/music_lvl_10.ogg"));
 			musicMap.put("music_lvl_11", new Music("res/music_lvl_11.ogg"));
 			musicMap.put("music_lvl_12", new Music("res/music_lvl_12.ogg"));
+			musicMap.put("music_lvl_13", new Music("res/music_lvl_13.ogg"));
 			musicMap.put("music_ending", new Music("res/music_ending.ogg"));
 			
 			

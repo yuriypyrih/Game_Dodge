@@ -122,7 +122,8 @@ public class Game extends Canvas implements Runnable{
 				
 			
 			}else if (spawner.Victory()) {
-				if(spawner.getOutterLevel() != 11) { // 11 is the last level so far
+				if(spawner.getOutterLevel() != 13) { // 11 is the last level so far
+					AudioPlayer.playMusic("music_ending");
 					gameState = STATE.Victory;
 				}else {
 					AudioPlayer.playMusic("music_ending");

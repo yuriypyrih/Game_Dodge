@@ -57,7 +57,7 @@ public class WarningEffect extends GameObject{
 				alpha = 0.06f;
 			}
 			else if(whichWarning == 5) {
-				effect_img = new ImageIcon("res/background_lvl_11_1.jpg").getImage();
+				effect_img = new ImageIcon("res/background_lvl_13_1.png").getImage();
 				alpha = 1;
 			}
 			else if(whichWarning == 6) {

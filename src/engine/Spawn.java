@@ -77,7 +77,7 @@ public class Spawn {
 	}
 	
 	public boolean nextLevel() {
-		if(outterLevel < 11) { //11 is currently the highest level
+		if(outterLevel < 13) { //13 is currently the highest level
 			AudioPlayer.playMusic("music_lvl_" + Integer.toString(++outterLevel));
 			startLevel(outterLevel);
 			return true;
@@ -125,7 +125,7 @@ public class Spawn {
 		else if(this.outterLevel == 10) { 
 			handler.addObject( new ShadowEnemy(1,1,ID.ShadowEnemy,handler));
 		}
-		else if(this.outterLevel == 11) { 
+		else if(this.outterLevel == 13) { 
 			health_pack_enabled = false;
 		}
 		
@@ -549,7 +549,61 @@ public class Spawn {
 				 }
 			}//end of level 10
 			
+	
 			else if(outterLevel == 11) { /*MISSION LVL 11*/
+				
+				if(hud.getStageTimer() == 5) {
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+				}
+				else if(hud.getStageTimer() == 80) {
+					
+					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar1) && !alreadyExecuted[0]) {
+	
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+					alreadyExecuted[0] = true;
+					hud.setStageTimer(81);
+				}
+				else if(hud.getStageTimer() == 150 && !alreadyExecuted[1]) {
+					
+					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar2) && !alreadyExecuted[1]) {
+	
+					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
+					alreadyExecuted[1] = true;
+					hud.setStageTimer(151);
+				}
+				else if(hud.getStageTimer() == 200 && alreadyExecuted[1]) {
+					handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
+				}
+			}//end of level 12
+			else if(outterLevel == 12) { /*MISSION LVL 12*/
+				
+				if(hud.getStageTimer() == 1) {
+					handler.addObject( new ChameleonBossEnemy((Game.WIDTH/2),-70,ID.ChameleonBossEnemy,handler)); //CHAMELEON BOSS
+				}
+				else if (hud.getStageTimer() == 100) {
+					handler.addObject( new Star((Game.WIDTH/2-8),50,ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar1) && !alreadyExecuted[0]) {
+					alreadyExecuted[0] = true;
+					hud.setStageTimer(101);
+				}
+				else if (hud.getStageTimer() == 200 && alreadyExecuted[0]) {
+					handler.addObject( new Star((Game.WIDTH/2-8),50,ID.Star,handler)); //STAR
+				}
+				else if(checkKeyStar(keyStar2) && !alreadyExecuted[1]) {
+					alreadyExecuted[1] = true;
+					hud.setStageTimer(201);
+				}
+				else if (hud.getStageTimer() == 300 && alreadyExecuted[1]) {
+					handler.addObject( new Star((Game.WIDTH/2-8),50,ID.Star,handler)); //STAR
+				}
+				
+			}
+			else if(outterLevel == 13) { /*MISSION LVL 13*/
 				
 				if(hud.getStageTimer() == 5) {
 					AudioPlayer.getSound("sound_lonely_girl").play(1f,0.55f);
@@ -665,43 +719,7 @@ public class Spawn {
 				 
 				
 			
-			}//end of level 11
-			else if(outterLevel == 12) { /*MISSION LVL 12*/
-				
-				if(hud.getStageTimer() == 5) {
-					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
-				}
-				else if(hud.getStageTimer() == 80) {
-					
-					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
-				}
-				else if(checkKeyStar(keyStar1) && !alreadyExecuted[0]) {
-	
-					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
-					alreadyExecuted[0] = true;
-					hud.setStageTimer(81);
-				}
-				else if(hud.getStageTimer() == 150 && !alreadyExecuted[1]) {
-					
-					 handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
-				}
-				else if(checkKeyStar(keyStar2) && !alreadyExecuted[1]) {
-	
-					handler.addObject( new ChameleonEnemy(1,1,ID.ChameleonEnemy,handler));//CHAMELEON ENEMY
-					alreadyExecuted[1] = true;
-					hud.setStageTimer(151);
-				}
-				else if(hud.getStageTimer() == 200 && alreadyExecuted[1]) {
-					handler.addObject( new Star((Game.WIDTH/2-8),(Game.HEIGHT/2-8),ID.Star,handler)); //STAR
-				}
-			}//end of level 12
-			else if(outterLevel == 13) { /*MISSION LVL 13*/
-				
-				if(hud.getStageTimer() == 1) {
-					handler.addObject( new ChameleonBossEnemy((Game.WIDTH/2-20),-70,ID.ChameleonBossEnemy,handler)); //CHAMELEON BOSS
-				}
-				
-			}
+			}//end of level 13
 		
 		}//stageTimer
 	}//tick()
