@@ -138,6 +138,8 @@ public class ChameleonBossEnemy extends GameObject{
 				chameleon_prev_form = chameleon_form;
 				bulletTimer = -30;
 				just_changed_form = true;
+				dropRain = false;
+				shakeTimer = 0;
 				rattle = true;
 				debug_position();
 				

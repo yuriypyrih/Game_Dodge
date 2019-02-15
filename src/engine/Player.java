@@ -75,8 +75,16 @@ public class Player extends GameObject{
 		 collision(); //to check if there is any collision happening
 		
 		if(poisoned) {
-			HUD.HEALTH -= 0.08f;
-		}
+			if(HUD.HEALTH >= 50) {
+				HUD.HEALTH -= 0.1f;
+			}
+			else if(HUD.HEALTH >= 10) {
+				HUD.HEALTH -= 0.05f;
+			}
+			else {
+				HUD.HEALTH -= 0.01f;
+			}
+		}//end of if(poisoned)
 	}
 	
 	private void collision() {
